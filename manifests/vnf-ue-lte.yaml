@@ -1,0 +1,24 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  labels:
+    app: jenkins
+  name: jenkins  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      #imagePullSecrets:
+      #- name: mysecretconfig
+      containers:
+      - name: jenkins 
+        image: mouhamedfall/jenkins:latest
+        imagePullPolicy: Always
+        
+    
