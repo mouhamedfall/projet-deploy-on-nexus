@@ -1,8 +1,9 @@
 pipeline {
   environment {
     registry = "localhost:8083/alpine"
-    registryCredential = 'dockerhub'
+    registryCredential = 'nexusAdmin'
     dockerImage = ''
+    dockerPush = ''
   }
   agent any
   stages {
@@ -26,9 +27,8 @@ pipeline {
     stage('Deploy Image') {
       steps{
         script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-          }
+          sh " docker login -u admin -p admin123 localhost:8083"
+          sh " docker push $registry:$BUILD_NUMBER"
         }
       }
     }
